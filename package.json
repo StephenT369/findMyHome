@@ -15,7 +15,9 @@
   "author": "",
   "license": "BOOTCAMP",
   "devDependencies": {
+    "chai": "^4.2.0",
     "concurrently": "^4.1.0",
+    "cross-env": "^6.0.3",
     "nodemon": "^1.18.7"
   },
   "dependencies": {
