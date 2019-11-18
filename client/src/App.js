@@ -1,8 +1,17 @@
 import React, { Component } from "react";
+import ReactDOM from "react-dom";
+import SignUpContainer from "./components/SignUpContainer"
+import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import logo from "./logo.svg";
 import "./App.css";
 
-class App extends Component {
+const App = () => (
+  <MuiThemeProvider>
+    <SignUpContainer />
+  </MuiThemeProvider>
+);
+
+/*class App extends Component {
   render() {
     return (
       <div className="App">
@@ -17,5 +26,5 @@ class App extends Component {
     );
   }
 }
-
+*/
 export default App;
