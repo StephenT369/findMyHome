@@ -20,17 +20,10 @@ const LogInForm = ({
   return (
     <div className="loginBox">
       <h1>Universal Home Finder</h1>
-      <h2>Sign Up Today!</h2>
+      <h2>Login</h2>
       {errors.message && <p style={{ color: "red" }}>{errors.message}</p>}
 
       <form onSubmit={onSubmit}>
-        <TextField
-          name="username"
-          floatingLabelText="First and Last Name"
-          value={user.username}
-          onChange={onChange}
-          errorText={errors.username}
-        />
         <TextField
           name="email"
           floatingLabelText="email"
@@ -59,28 +52,16 @@ const LogInForm = ({
             </div>
             )} 
         </div>
-        <TextField
-          type={type}
-          name="pwconfirm"
-          floatingLabelText="confirm password"
-          value={user.pwconfirm}
-          onChange={onChange}
-          errorText={errors.pwconfirm}
-        />
         <br />
         <RaisedButton
           className="signUpSubmit"
           primary={true}
           type="submit"
-          label="submit"
+          label="login"
         />
       </form>
-      <p>
-        Aleady have an account? <br />
-        <a href="/">Log in here</a>
-      </p>
     </div>
   );
 };
 
-export default SignUpForm;
+export default LogInForm;

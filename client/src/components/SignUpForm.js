@@ -1,4 +1,6 @@
 import React from "react";
+import { Link, Route, Router } from 'react-router-dom';
+import LogInContainer from "./LogInContainer";
 import FlatButton from "material-ui/FlatButton";
 import RaisedButton from "material-ui/RaisedButton";
 import TextField from "material-ui/TextField";
@@ -77,7 +79,7 @@ const SignUpForm = ({
       </form>
       <p>
         Aleady have an account? <br />
-        <a href="/">Log in here</a>
+        <Link to='/login'>Click Here to Login!</Link>
       </p>
     </div>
   );
