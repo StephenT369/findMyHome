@@ -8,24 +8,32 @@ var db = require("../models");
 var passport = require("../config/passport");
 
 module.exports = function(app) {
-
- // passport login post
- app.post("/api/login", passport.authenticate("local"), function(req, res) {
+  // passport login post
+  app.post("/api/login", passport.authenticate("local"), function(req, res) {
+    console.log("hello you just logged in!");
     res.json(req.user);
   });
 
-//Create user from signup form
-    app.post("/api/signup", function(req, res){
-       //return res.json;
-       db.User.create({
-           username: req.body.username,
-           email: req.body.email,
-           password: req.body.password
-       })
-        console.log(req.body);
-    });
+  //Create user from signup form
+  app.post("/api/signup", function(req, res) {
+    //return res.json;
+    db.User.create({
+      username: req.body.username,
+      email: req.body.email,
+      password: req.body.password
+    })
+      .then(function() {
+        //history.push('/login');
+        
+        res.redirect("/login");
+      })
+      .catch(function(err) {
+        res.status(401).json(err);
+      });
+    //console.log(req.body);
+  });
 
-///API search
+  ///API search
   app.get("/search", function(req, res) {
     var postalCode = req.query.postalCode;
     var pageSize = 21;
