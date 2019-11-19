@@ -7,17 +7,17 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false,
       unique: true
     },
+    password: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
     email: {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
         isEmail: true
       }
-    },
-    password: {
-        type: DataTypes.STRING,
-        allowNull: false
-      }
+    }
   });
   //Method for checking unhashed password with hashed one for validation
   User.prototype.validatePassword = function(password) {
