@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Switch, Route, useHistory } from "react-router-dom";
 import SignUpForm from "./SignUpForm.js";
 const axios = require("axios");
 const FormValidators = require("./validate");
@@ -72,7 +73,8 @@ class SignUpContainer extends Component {
         if (res.data.success === true) {
           localStorage.token = res.data.token;
           localStorage.isAuthenticated = true;
-          window.location.reload();
+          //window.location.replace('/login');
+          this.props.history.push('/login');
         } else {
           this.setState({
             errors: { message: res.data.message }
