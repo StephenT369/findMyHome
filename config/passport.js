@@ -8,19 +8,19 @@ var db = require("../models");
 passport.use(
   new LocalStrategy(
     {
-      usernameField: "username"
+      emailField: "email"
     },
-    function(username, password, done) {
+    function(email, password, done) {
       //Find User in database
       db.User.findOne({
         where: {
-          username: username
+          email: email
         }
       }).then(function(dbUser) {
         //if no user
         if (!dbUser) {
           return done(null, false, {
-            message: "Incorrect username"
+            message: "Incorrect email or email not found"
           });
         }
         // if wrong password
