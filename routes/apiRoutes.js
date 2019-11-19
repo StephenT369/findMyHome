@@ -23,9 +23,8 @@ module.exports = function(app) {
       password: req.body.password
     })
       .then(function() {
-        //history.push('/login');
-        
-        res.redirect("/login");
+        console.log('User Inserted!');
+        //res.redirect('/login');
       })
       .catch(function(err) {
         res.status(401).json(err);
