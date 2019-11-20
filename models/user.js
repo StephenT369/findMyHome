@@ -1,22 +1,22 @@
+//Model file
 var bcrypt = require("bcryptjs");
 
 module.exports = function(sequelize, DataTypes) {
   var User = sequelize.define("User", {
-    username: {
+    firstLatName: {
       type: DataTypes.STRING,
       allowNull: false,
       unique: true
     },
-    password: {
-      type: DataTypes.STRING,
-      allowNull: false
-    },
     email: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      validate: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
         isEmail: true
-      }
+    }},
+    password: {
+        type: DataTypes.STRING,
+        allowNull: false
     }
   });
   //Method for checking unhashed password with hashed one for validation
