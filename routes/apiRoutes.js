@@ -21,15 +21,12 @@ module.exports = function(app) {
       username: req.body.username,
       email: req.body.email,
       password: req.body.password
-    })
-      .then(function() {
-        console.log('User Inserted!');
-        //res.redirect('/login');
+    }).then(function() {
+        res.json(db.User);
       })
       .catch(function(err) {
         res.status(401).json(err);
       });
-    //console.log(req.body);
   });
 
   ///API search
