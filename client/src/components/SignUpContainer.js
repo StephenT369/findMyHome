@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
 import SignUpForm from "./SignUpForm.js";
-import { throws } from "assert";
 const axios = require("axios");
 const FormValidators = require("./validate");
 const validateSignUpForm = FormValidators.validateSignUpForm;
@@ -120,7 +119,9 @@ class SignUpContainer extends Component {
       })
     );
   }
-
+componentWillUnmount(){
+  this._isMounted = false;
+}
   render() {
     if (this.state.insertUser === true) {
       return <Redirect to='/login' />

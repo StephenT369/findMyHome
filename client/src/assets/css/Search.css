@@ -1,0 +1,122 @@
+body {
+    background-image: url("../images/signup_bk.jpg");
+    background-size: cover;
+  }
+  body,
+  h1 {
+    font-family: "Raleway", sans-serif;
+  }
+  
+  h1 {
+    text-align: center;
+  }
+  
+  body,
+  html {
+    height: 100%;
+  }
+  /* 
+  .bgimg { */
+  
+  /* Full heigt */
+  /* min-height: 100%;  */
+  
+  /* Center and scale the image nicely */
+  /* background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover; */
+  /* } */
+  
+  #addQuestion {
+    /* background-color: #C5C9B8; */
+    width: 100%;
+    color: #333333;
+    height: 450px;
+    margin: 0 auto;
+    overflow: hidden;
+    padding: 10px 0;
+    align-items: center;
+    justify-content: space-around;
+    display: flex;
+    float: none;
+  }
+  
+  .topleftimg {
+    position: absolute;
+    bottom: 55px;
+    left: 12px;
+    font-size: 18px;
+  }
+  
+  #button {
+    margin-right: 0.5em;
+  }
+  
+  .subBtn {
+    background-color: #4caf50;
+  }
+  /* side bar */
+  
+  .sidebar {
+    height: 30%; /* Full-height: remove this if you want "auto" height */
+    width: 220px; /* Set the width of the sidebar */
+    position: fixed; /* Fixed Sidebar (stay in place on scroll) */
+    z-index: 1; /* Stay on top */
+    top: 0; /* Stay at the top */
+    left: 0;
+    background: rgba(0, 151, 19, 0.1);
+    overflow-x: hidden; /* Disable horizontal scroll */
+    padding-top: 20px;
+    font-weight: inherit;
+    font-style: inherit;
+    font-family: Georgia, "Times New Roman", Times, serif;
+    font-size: 20px;
+    padding: 20px;
+    color: white; 
+  
+    /* padding: 10;
+      font-size: 150%;
+      
+      font-weight: inherit;
+      font-style: inherit;
+      font-family: Georgia, 'Times New Roman', Times, serif;
+      vertical-align: baseline;
+  
+      /* margin: 0;
+      padding: 0; */
+    /* width: 220px;
+      background: rgba(0, 151, 19, 0.2);
+  
+      position: fixed;
+      height: 100%;
+      overflow: auto; */
+  }
+  
+  button:focus {
+    outline: 0;
+  }
+  
+  /* .navbar .dropdown-menu .form-control {
+      /* width: 30px; */
+  /* 
+      position: absolute;
+      top: 15px;
+      right: 16px;
+      
+  } */
+  
+  .signIn {
+    top: 0;
+    position: absolute;
+    right: 30px;
+  }
+  
+  #sidebar-menu{
+    color:white;
+  }
+  
+  #sidebar-heading{
+    color: rgb(58, 167, 58);
+    font-size: 30px;
+  
+  }
