@@ -15,6 +15,9 @@
       "logging": false
     },
     "production": {
+      "username" : "jhliohx8b5xzzl5w",
+      "password": "wzsfmkcyjp43fhgi",
+      "database" : "x5x758me4myj7rn4",
       "use_env_variable": "JAWSDB_URL",
       "dialect": "mysql"
     }
