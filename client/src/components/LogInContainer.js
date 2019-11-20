@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Switch, Route, Redirect } from "react-router-dom";
 import LogInForm from "./LogInForm";
 const axios = require("axios");
 const FormValidators = require("./validate");
@@ -19,7 +20,8 @@ class LogInContainer extends Component {
       },
       btnTxt: "show",
       type: "password",
-      score: "0"
+      score: "0",
+      loginUser: false
     };
 
     this.pwMask = this.pwMask.bind(this);
@@ -88,7 +90,8 @@ class LogInContainer extends Component {
     var payload = validateSignUpForm(this.state.user);
     if (payload.success) {
       this.setState({
-        errors: {}
+        errors: {},
+        loginUser: true
       });
       var user = {
         usr: this.state.user.username,
@@ -99,7 +102,8 @@ class LogInContainer extends Component {
     } else {
       const errors = payload.errors;
       this.setState({
-        errors
+        errors,
+        loginUser: true
       });
     }
   }
@@ -115,6 +119,9 @@ class LogInContainer extends Component {
   }
 
   render() {
+    if (this.state.loginUser === true){
+      return <Redirect to='/search'/>
+    }
     return (
       <div>
         <LogInForm
