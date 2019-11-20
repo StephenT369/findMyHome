@@ -1,6 +1,7 @@
 import React, { Component } from "react";
-import { Switch, Route, useHistory } from "react-router-dom";
+import { Switch, Route, Redirect } from "react-router-dom";
 import SignUpForm from "./SignUpForm.js";
+import { throws } from "assert";
 const axios = require("axios");
 const FormValidators = require("./validate");
 const validateSignUpForm = FormValidators.validateSignUpForm;
@@ -20,7 +21,8 @@ class SignUpContainer extends Component {
       },
       btnTxt: "show",
       type: "password",
-      score: "0"
+      score: "0",
+      insertUser: false
     };
 
     this.pwMask = this.pwMask.bind(this);
@@ -66,15 +68,15 @@ class SignUpContainer extends Component {
   }
 
   submitSignup(user) {
+    
     var params = { username: user.usr, password: user.pw, email: user.email };
     axios
       .post("/api/signup", params)
       .then(res => {
         if (res.data.success === true) {
+          this.setState({insertUser: true});
           localStorage.token = res.data.token;
           localStorage.isAuthenticated = true;
-          //window.location.replace('/login');
-          this.props.history.push('/login');
         } else {
           this.setState({
             errors: { message: res.data.message }
@@ -89,9 +91,11 @@ class SignUpContainer extends Component {
   validateForm(event) {
     event.preventDefault();
     var payload = validateSignUpForm(this.state.user);
+
     if (payload.success) {
       this.setState({
-        errors: {}
+        errors: {},
+        insertUser: true
       });
       var user = {
         usr: this.state.user.username,
@@ -118,6 +122,9 @@ class SignUpContainer extends Component {
   }
 
   render() {
+    if (this.state.insertUser === true) {
+      return <Redirect to='/login' />
+    }
     return (
       <div>
         <SignUpForm

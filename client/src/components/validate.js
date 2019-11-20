@@ -26,10 +26,10 @@ const validateSignUpForm = payload => {
   if (
     !payload ||
     typeof payload.password !== "string" ||
-    payload.password.trim().length < 8
+    payload.password.trim().length < 1
   ) {
     isFormValid = false;
-    errors.password = "Password must have at least 8 characters.";
+    errors.password = "Password must have at least 1 characters.";
   }
 
   if (!payload || payload.pwconfirm !== payload.password) {

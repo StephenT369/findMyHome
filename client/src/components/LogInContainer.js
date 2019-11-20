@@ -72,7 +72,6 @@ class LogInContainer extends Component {
         if (res.data.success === true) {
           localStorage.token = res.data.token;
           localStorage.isAuthenticated = true;
-          window.location.reload();
         } else {
           this.setState({
             errors: { message: res.data.message }
