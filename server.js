@@ -2,7 +2,7 @@ require("dotenv").config();
 const express = require("express");
 var session = require("express-session");
 const path = require("path");
-const PORT = process.env.PORT || 3001;
+const PORT = /*process.env.PORT */|| 3001;
 const app = express();
 
 var passport = require("./config/passport");
@@ -12,7 +12,7 @@ var db = require("./models")
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 // Serve up static assets (usually on heroku)
-if (process.env.NODE_ENV === "production") {
+if (process.env.NODE_ENV === "test") {
   app.use(express.static("client/build"));
 }
 
