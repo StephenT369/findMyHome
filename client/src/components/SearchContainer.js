@@ -30,7 +30,7 @@ constructor(props){
 
 submitSearch(event){
     event.preventDefault();
-    
+    window.location.href = ('/results'); // REMOVE AFTER DEMO
     var postalCode = 75032; //this.state.properties.postalCode;
     var minTaxAmt = 1000; //this.state.properties.minTaxAmt;
     var maxTaxAmt = 3000; //this.state.properties.maxTaxAmt;
@@ -62,6 +62,7 @@ axios.default
 .get(attomUrl)
 .then(function(response) {
     var data = response.data.property;
+    // console.log(data);
     var address = [];
 
     for (let i = 0; i < data.length; i++) {
@@ -80,7 +81,9 @@ axios.default
     console.log(error.config);
   })
   .then(async address => {
+    console.log(address.length);
     for (let i = 0; i < address.length; i++) {
+      console.log(i)
       var parms = {
         address: address[i],
         citystatezip: postalCode
@@ -90,6 +93,7 @@ axios.default
   });
 
 function getZillowData(parms, address) {
+  console.log(parms, address)
   return zApi
     .get("GetDeepSearchResults", parms, address)
     .then(function(results) {
