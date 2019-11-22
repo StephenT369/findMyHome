@@ -1,11 +1,13 @@
 require("dotenv").config();
 var axios = require("axios");
-axios.default.defaults.headers.common["apikey"] = process.env.apikey;
-axios.default.defaults.headers.common["Accept"] = process.env.Accept;
+axios.default.defaults.headers.common["apikey"] = '4c0b6b2cba6a096ddb09064a579ab77e';
+axios.default.defaults.headers.common["Accept"] = 'application/json';
 var Zillow = require("node-zillow");
-var zApi = new Zillow(process.env.ZWSID);
+var zApi = new Zillow('X1-ZWz1hghtx31b0r_47pen');
 var db = require("../models");
 var passport = require("../config/passport");
+
+let addressInformation = [];
 
 module.exports = function(app) {
   // passport login post
@@ -30,7 +32,7 @@ module.exports = function(app) {
   });
 
   ///API search
-  app.get("/search", function(req, res) {
+  app.get("/api/search", function(req, res) {
     var postalCode = req.query.postalCode;
     var pageSize = 21;
     var minTaxAmt = req.query.minTaxAmt;
@@ -49,28 +51,24 @@ module.exports = function(app) {
       maxBeds,
       maxBathsTotal
     ) {
+      console.log(postalCode)
       attomUrl =
-        "https://api.gateway.attomdata.com/propertyapi/v1.0.0/assessment/detail?" +
-        "postalcode=" +
-        postalCode +
-        "&pagesize=" +
-        pageSize +
-        "&propertytype=SFR" +
-        "&minTaxAmt=" +
-        minTaxAmt +
-        "&maxTaxAmt=" +
-        maxTaxAmt +
-        "&minMktTtlValue=" +
-        minMktTtlValue +
-        "&maxMktTtlValue=" +
-        maxMktTtlValue +
-        "&maxBeds=" +
-        maxBeds +
-        "&maxBathsTotal=" +
-        maxBathsTotal;
+        "https://api.gateway.attomdata.com/propertyapi/v1.0.0/assessment/detail"
 
-      axios.default
-        .get(attomUrl)
+      axios({
+        url: attomUrl,
+        method: 'get',
+        params: {
+          postalCode,
+          pageSize,
+          minTaxAmt,
+          maxTaxAmt,
+          minMktTtlValue,
+          maxMktTtlValue,
+          maxBeds,
+          maxBathsTotal          
+        }
+      })
         .then(function(response) {
           var data = response.data.property;
           var address = [];
@@ -88,9 +86,10 @@ module.exports = function(app) {
           } else {
             console.log("REQUEST ERROR: ", error.message);
           }
-          console.log(error.config);
+          res.json({ error: error.message })
         })
         .then(async address => {
+          console.log(address);
           for (let i = 0; i < address.length; i++) {
             var parms = {
               address: address[i],
@@ -98,15 +97,20 @@ module.exports = function(app) {
             };
             const zillowData = await getZillowData(parms, address[i]);
           }
+          return res.json({ addressInformation })
         });
 
       function getZillowData(parms, address) {
         return zApi
           .get("GetDeepSearchResults", parms, address)
           .then(function(results) {
-            var zpid = results.response.results.result[0].zpid;
+            try {
+              var zpid = results.response.results.result[0].zpid;
 
-            return zpid;
+              return zpid;
+            } catch (err) {
+              return res.status(500).json({ error: 'Server error' })
+            }
           })
           .then(function(zpid) {
             zApi
@@ -148,7 +152,8 @@ module.exports = function(app) {
                 console.log("----PROPERTY----");
                 /*console.log("****ZILLOW WHOLE RESPONSE****");
           console.log(results)*/
-                return results.response;
+                // return res.json(results.response);
+                addressInformation.push(results.response)
               });
           });
       }
